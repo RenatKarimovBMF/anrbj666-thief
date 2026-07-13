@@ -84,4 +84,30 @@ tokens, `credentials.json`/`token.json` contents, private personal data, or tunn
 - **Known limitations:** no orchestrator/state-machine turn loop yet; no deadline/
   watchdog; numeric messages only; single tool set. Strategy is Stage 3.
 - **Estimated/measured AI cost:** not separately metered.
-- **Related stage / commit:** Stage 2 — commit hash to be filled after manual commit.
+- **Related stage / commit:** Stage 2 — commit `6dabf22`.
+
+---
+
+## Session 2026-07-13 — Stage 3 "blind" strategy module
+- **Date:** 2026-07-13
+- **Team member:** Renat (with Alon)
+- **Model:** Cursor agent (Opus 4.8)
+- **Purpose:** First decision core (book §10.3.3): deterministic BFS shortest legal
+  path to a **known** target cell, executed one step per turn. No scent, language,
+  deception, or LLM yet.
+- **Prompt summary:** After `COMMIT DONE: STAGE 2 BOTH`, proceed with Stage 3
+  following planning -> tests -> smallest implementation -> checks -> manual
+  commit + push; no Git writes by Cursor.
+- **Files affected (thief):** `src/anrbj666_thief/strategy/{__init__,action,base,pathfinding,heuristic,runner}.py`,
+  `tests/{test_pathfinding,test_strategy}.py`, `docs/{DECISIONS,TODO,PROMPT_BOOK,REQUIREMENTS_MATRIX}.md`.
+- **Important decisions:** D-009 (pluggable brains Appendix F T22; BFS shortest path;
+  "known target" now, belief in Stage 4; thief evasion fallback; LLM never decides
+  moves, Rule 25).
+- **Tests performed:** `uv run pytest --cov` -> 104 passed, 100% coverage;
+  `uv run ruff check .` -> clean. Milestone verified: thief computes & executes the
+  shortest legal path to a known escape cell (Manhattan = number of steps).
+- **Manual verification performed:** none by Cursor.
+- **Known limitations:** target/police cell is ground truth (Stage 4 replaces with
+  belief); no networking in the runner (single-process engine).
+- **Estimated/measured AI cost:** not separately metered.
+- **Related stage / commit:** Stage 3 — commit hash to be filled after manual commit.

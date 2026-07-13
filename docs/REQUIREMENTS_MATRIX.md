@@ -39,7 +39,7 @@ Stage column = the official stage where the item is delivered.
 | RQ-SCORE-01 | Scoring 20/5/5/10, tie 2 | Yes | F-T17, E-R48 | F | 1/7 | P | T | `game/scoring` | `scoring.*` | ✓ | – | – | tests | TESTED |
 | RQ-SCENT-01 | Pheromone emit 0.9, decay 0.10, 5×5, crypto-locked (thief emits) | Yes | F-T16, E-R23 | F | 4/6 | P | **T** | `scent` | `scent.*` | ✓ | ✓ | – | tests | NOT-STARTED |
 | RQ-BELIEF-01 | Local belief state / Bayesian heatmap of pursuer | Yes | Ch.6 | R | 3/4 | P | **T** | `strategy/belief` | — | ✓ | – | – | tests | NOT-STARTED |
-| RQ-STRAT-01 | Pluggable strategy module (`ThiefBrain._pick_move`) | Yes | F-T22 | F | 3 | – | **T** | `strategy` | `[strategy].thief_class` | ✓ | – | – | tests | NOT-STARTED |
+| RQ-STRAT-01 | Pluggable strategy module (`ThiefBrain._pick_move`/`PoliceBrain`; blind BFS shortest path to known target) | Yes | F-T22, Ch.6/§10.3.3 | F | 3 | **P** | **T** | `strategy` (`pathfinding`,`base`,`heuristic`,`runner`) | `[strategy].thief_class`/`police_class` | ✓ | – | – | tests (D-009) | TESTED |
 | RQ-LANG-01 | Free-language dialogue between agents | Yes | E-R26, C | R/C | 4 | P | T | `protocol/lang` | `verbal.hint_word_limit` | ✓ | ✓ | – | transcript | NOT-STARTED |
 | RQ-LANG-02 | No direct numeric-position protocol | Yes | E-R27 | R | 4 | P | T | `protocol` (Stage 4 wraps Stage-2 `mcp` numeric scaffold) | — | ✓ | ✓ | – | tests | NOT-STARTED |
 | RQ-LLM-01 | LLM never decides moves (text/deception only) | Yes | E-R25, F-T21 | R/F | 4 | P | T | `llm/gatekeeper` | `[trash_talk].provider` | ✓ | – | – | tests | NOT-STARTED |

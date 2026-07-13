@@ -52,6 +52,22 @@ numeric-position protocol (Rule 27). **Rationale:** book Ch. 2 mandates FastMCP;
 in-memory testing keeps the suite offline/fast; staged plan (§10.3.2) explicitly
 starts with numeric messages. **Status:** adopted.
 
+## D-009 — 2026-07-13 — Stage 3 blind strategy: BFS shortest path to a *known* target
+Add a pluggable, deterministic decision core (`strategy/`, Appendix F T22): `PoliceBrain`/
+`ThiefBrain` bases with `decide()`; `HeuristicPolice._decide_move` / `HeuristicThief._pick_move`.
+Movement is `orthogonal4_plus_stay`, so an unweighted BFS over free cells (`strategy/pathfinding.py`)
+yields a **shortest legal path**; `next_step_toward` executes one step per turn. Barriers and
+`blocked` cells are impassable; neighbour expansion order is fixed so paths are deterministic.
+**"Blind" = the target cell is handed to the brain**: Stage 3 reads the opponent's actual cell as
+the target; **Stage 4 replaces it with a belief estimate from scent/dialogue**, so the final
+system uses no ground-truth opponent position. **Barrier placement is not exercised by the blind
+police core** (`Action.barrier_at=None`); it is added with the belief model. The thief navigates to
+a known escape cell and falls back to the legal step maximising Manhattan distance from the police
+when the target is unreachable. **The LLM never decides moves (Rule 25).** A single-process
+`play_with_strategies` runner drives both brains through the Stage 1 engine (no networking yet).
+**Rationale:** book §10.3.3 "first decision core"; BFS is exact/cheap on a small grid; separating
+"known target" (Stage 3) from "belief" (Stage 4) keeps the incremental plan clean. **Status:** adopted.
+
 ## Pending decisions
 - **PD-001 (C-002):** RESOLVED for implementation by D-007 (independent, default-equal).
   Remains open only for optional lecturer/opponent clarification of intended equality;

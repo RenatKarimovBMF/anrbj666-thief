@@ -33,12 +33,23 @@ Living task list. `[ ]` open · `[~]` in progress · `[x]` done. Grouped by stag
 - [x] Runnable localhost entrypoint (`mcp/__main__.py`) + OPERATIONS instructions
 - [x] Milestone test: geometric message A->B received & parsed (in-memory FastMCP round-trip)
 - [x] Tests (90) + coverage (100%) + ruff clean
-- [ ] Human: manual commit + push (thief, Stage 2)
-- [ ] Human: confirm `COMMIT DONE: STAGE 2 ...`
+- [x] Human: manual commit + push (thief, Stage 2)
+- [x] Human: confirm `COMMIT DONE: STAGE 2 ...`
 - [ ] Optional manual: two-terminal localhost live run (marked `network`)
 
+## Stage 3 — "blind" strategy module
+- [x] BFS shortest legal path over the grid (`strategy/pathfinding.py`)
+- [x] `Action` (move + optional barrier) (`strategy/action.py`)
+- [x] Pluggable brains `PoliceBrain`/`ThiefBrain` (Appendix F T22) (`strategy/base.py`)
+- [x] `HeuristicThief` blind navigation to a known target + evasion fallback (`strategy/heuristic.py`)
+- [x] Single-process strategy runner (`strategy/runner.py`)
+- [x] Milestone test: given a known target, compute & execute shortest legal path (no manual help)
+- [x] Tests (104) + coverage (100%) + ruff clean
+- [ ] Human: manual commit + push (thief, Stage 3)
+- [ ] Human: confirm `COMMIT DONE: STAGE 3 ...`
+
 ## Later stages
-- [ ] Stage 3 strategy · [ ] Stage 4 language+scent
+- [ ] Stage 4 language+scent (belief-based target replaces ground truth; barrier heuristic)
 - [ ] Stage 5 tunnel · [ ] Stage 6 crypto · [ ] Stage 7 reporting · [ ] Final hardening
 
 ## Open questions
