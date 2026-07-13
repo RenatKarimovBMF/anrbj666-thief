@@ -1,0 +1,52 @@
+---
+description: Absolute manual-Git safety policy for the anrbj666 final project. Cursor must never write to Git or GitHub.
+alwaysApply: true
+---
+
+# 00 — MANUAL GIT ONLY (NON-NEGOTIABLE)
+
+This repository (`anrbj666-thief`) is part of the University of Haifa 2026 final
+project "Distributed Cops-and-Robbers over a Peer-to-Peer Network" by Alon and Renat.
+
+## Cursor MUST NEVER
+
+- create a commit;
+- push, tag, create a repository, create a branch, merge, rebase, stash,
+  reset, restore, cherry-pick, revert, clean, `rm`, or `mv` via Git;
+- run `git init`, `git add`, `git commit`, `git push`, `git tag`,
+  `git branch`, `git checkout`, `git switch`, `git merge`, `git rebase`,
+  `git reset`, `git restore`, `git stash`, `git cherry-pick`, `git revert`,
+  `git clean`, `git rm`, `git mv`;
+- run `gh repo create`, `gh repo edit`, `gh pr create`, `gh pr merge`, or any
+  GitHub API write operation;
+- perform automatic commits, pushes, branch creation, PRs, or tags;
+- launch Cursor Cloud Agents, background agents, remote agents, or worktree
+  agents for this project;
+- enable any automated Git workflow.
+
+Only Alon or Renat may perform Git or GitHub write operations, by hand.
+
+## Cursor MAY ONLY use read-only Git
+
+`git status`, `git status --short`, `git diff`, `git diff --stat`,
+`git diff --name-only`, `git log`, `git log --oneline`, `git remote -v`,
+`git branch --show-current`, `git rev-parse --show-toplevel`,
+`git rev-parse HEAD`, `git show --stat`, `git ls-files`.
+
+## Stage discipline
+
+- Every development stage must STOP at a manual commit checkpoint.
+- When a stage modifies both repositories (`anrbj666-police` and
+  `anrbj666-thief`), BOTH must be committed by a human before continuing.
+- Cursor must NOT continue to the next stage until the human sends exactly one of:
+  `COMMIT DONE: STAGE <N> BOTH`, `COMMIT DONE: STAGE <N> POLICE`,
+  or `COMMIT DONE: STAGE <N> THIEF`.
+- Phrases like "continue", "go ahead", "proceed", "looks good", "approved",
+  "next", "fix it", "do everything", "finish the stage", "create the
+  repository", or "commit the work" are NEVER permission to write Git.
+
+## Secrets
+
+Never read, print, copy, summarize, or commit the contents of `.env`,
+`credentials.json`, `token.json`, OAuth secrets, API keys, or tunnel tokens.
+Before every checkpoint, review the changed-file list for accidental secrets.

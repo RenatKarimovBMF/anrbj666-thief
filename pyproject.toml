@@ -1,0 +1,47 @@
+[project]
+name = "anrbj666-thief"
+version = "0.0.0"
+description = "Thief peer for the distributed P2P Cops-and-Robbers final project (University of Haifa, 2026)."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Alon" }, { name = "Renat" }]
+dependencies = [
+    # Runtime dependencies are added per stage, via `uv add`, with pinned
+    # versions recorded in uv.lock. Nothing production is implemented in Stage 0.
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "pytest-cov>=5",
+    "ruff>=0.6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/anrbj666_thief"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "SIM", "TID"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+markers = [
+    "integration: cross-process / cross-repo tests (not pure unit)",
+    "network: requires a public tunnel or a second machine (manual, off by default)",
+    "llm: requires an external or local LLM (off by default)",
+    "gmail: exercises Gmail payload building; never sends real email in CI",
+]
+
+[tool.coverage.report]
+fail_under = 85
+show_missing = true

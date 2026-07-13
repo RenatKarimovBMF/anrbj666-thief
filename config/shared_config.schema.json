@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://anrbj666.example/shared_config.schema.json",
+  "title": "Shared match configuration (public, crypto-locked, negotiated between peers)",
+  "description": "PUBLIC contract shared byte-identically by both peers. Numerical values and their MINIMUM/CONSTANT/NEGOTIABLE status derive from Appendix F (Tables 13-19) of police_thief_p2p.pdf v3.0.0. This schema is duplicated identically in anrbj666-police and anrbj666-thief. Do NOT change without updating both repos, the requirements matrix, INTEROPERABILITY.md and tests.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "config_version", "game_id", "board", "movement", "scent", "scoring",
+    "league", "network"
+  ],
+  "properties": {
+    "config_version": { "type": "string", "description": "Semantic version of this shared contract, e.g. 1.0.0." },
+    "game_id": { "type": "string", "description": "Unique identifier of the match series; drives artifact file names." },
+    "board": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["size", "num_agents", "axis_origin", "axis_start_index", "thief_start", "police_start"],
+      "properties": {
+        "size": { "type": "integer", "minimum": 7, "description": "Square grid side. Appendix F T13#1 MINIMUM 7." },
+        "num_agents": { "type": "integer", "const": 2, "description": "Appendix F T13#2 CONSTANT 2." },
+        "axis_origin": { "type": "string", "enum": ["top-left"], "description": "Appendix F T13#3 NEGOTIABLE, example top-left = (0,0)." },
+        "axis_start_index": { "type": "integer", "minimum": 0, "description": "Appendix F T13#4 NEGOTIABLE, example 0." },
+        "thief_start": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2, "description": "Appendix F T13#5 NEGOTIABLE, example center [3,3]." },
+        "police_start": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2, "description": "Appendix F T13#6 NEGOTIABLE, example corner [0,0]." }
+      }
+    },
+    "movement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["set", "barrier_quota", "max_steps", "survival_threshold"],
+      "properties": {
+        "set": { "type": "string", "const": "orthogonal4_plus_stay", "description": "Appendix F T15#1 CONSTANT: 4 directions + stay, no diagonals." },
+        "barrier_quota": { "type": "integer", "minimum": 14, "description": "Appendix F T15#2 MINIMUM 14 (max barriers police may place)." },
+        "max_steps": { "type": "integer", "minimum": 35, "description": "Appendix F T15#3 MINIMUM 35." },
+        "survival_threshold": { "type": "integer", "minimum": 35, "description": "Appendix F T15#4 MINIMUM 35." }
+      }
+    },
+    "scent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_strength", "decay_rate", "field_size"],
+      "properties": {
+        "source_strength": { "type": "number", "const": 0.9, "description": "Appendix F T16#1 CONSTANT 0.9." },
+        "decay_rate": { "type": "number", "const": 0.10, "description": "Appendix F T16#2 CONSTANT 0.10 per turn." },
+        "field_size": { "type": "integer", "const": 5, "description": "Appendix F T16#3 CONSTANT 5x5 emission window." }
+      }
+    },
+    "scoring": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["capture_police", "capture_thief", "survival_police", "survival_thief", "tie"],
+      "properties": {
+        "capture_police": { "type": "integer", "const": 20, "description": "Appendix F T17#1 CONSTANT." },
+        "capture_thief": { "type": "integer", "const": 5, "description": "Appendix F T17#2 CONSTANT." },
+        "survival_police": { "type": "integer", "const": 5, "description": "Appendix F T17#3 CONSTANT." },
+        "survival_thief": { "type": "integer", "const": 10, "description": "Appendix F T17#4 CONSTANT." },
+        "tie": { "type": "integer", "const": 2, "description": "Appendix F T17#5 CONSTANT (each side)." }
+      }
+    },
+    "league": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sub_games", "variety_reward", "min_games_to_pass", "max_games_per_group"],
+      "properties": {
+        "sub_games": { "type": "integer", "const": 6, "description": "Appendix F T18#1 CONSTANT sub-games per series." },
+        "variety_reward": { "type": "integer", "const": 10, "description": "Appendix F T18#2 CONSTANT." },
+        "min_games_to_pass": { "type": "integer", "const": 2, "description": "Appendix F T18#3 CONSTANT." },
+        "max_games_per_group": { "type": "integer", "const": 10, "description": "Appendix F T18#5 CONSTANT." }
+      }
+    },
+    "verbal": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "arena": { "type": "string", "description": "Appendix F T14#1 NEGOTIABLE place-name seed, example 'New York'; '' = generic." },
+        "hint_word_limit": { "type": "integer", "minimum": 15, "description": "Appendix F T14#2 NEGOTIABLE, example 15." }
+      }
+    },
+    "network": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requests_per_minute", "parallel_requests", "retry_delay_s", "retry_attempts", "queue_depth", "response_timeout_s", "watchdog_timeout_s"],
+      "properties": {
+        "requests_per_minute": { "type": "integer", "minimum": 30, "description": "Appendix F T19#1 MINIMUM 30." },
+        "parallel_requests": { "type": "integer", "minimum": 2, "description": "Appendix F T19#2 MINIMUM 2." },
+        "retry_delay_s": { "type": "integer", "minimum": 5, "description": "Appendix F T19#3 MINIMUM 5s." },
+        "retry_attempts": { "type": "integer", "minimum": 3, "description": "Appendix F T19#4 MINIMUM 3." },
+        "queue_depth": { "type": "integer", "minimum": 100, "description": "Appendix F T19#5 MINIMUM 100." },
+        "response_timeout_s": { "type": "integer", "minimum": 30, "description": "Appendix F T19#6 NEGOTIABLE, example 30s." },
+        "watchdog_timeout_s": { "type": "integer", "minimum": 60, "description": "Appendix F T19#7 NEGOTIABLE, example 60s." }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+# PRIVATE per-peer configuration (thief) - EXAMPLE.
+# This file is NEVER shared with the opponent and is NOT part of the crypto-locked
+# shared contract. Copy to `private_config.toml` (kept local) and adjust.
+# See Appendix F Tables 21-22 and docs/CONFIGURATION.md.
+
+[strategy]
+# Fully-qualified strategy class overriding ThiefBrain (Appendix F Table 22).
+# For thief, _pick_move selects the evasion/survival step (no barriers).
+thief_class = "anrbj666_thief.strategy.heuristic:HeuristicThief"
+
+[trash_talk]
+# LLM mode for verbal deception ONLY (never decides moves). Appendix F Table 21.
+# One of: template | ollama | claude_api | claude_cli
+provider = "template"
+every_n_steps = 1
+# Secrets (API keys, tokens) live in .env / credentials.json, NEVER here.
+
+[gatekeeper]
+# Local token/cost ceilings; hard limits still come from shared_config.network.
+session_token_budget = 200000
+per_request_token_cap = 2048
