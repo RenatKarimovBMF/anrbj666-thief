@@ -12,8 +12,22 @@ uv run ruff check .          # must be zero violations
 ```
 
 ## Local two-terminal play (from Stage 2)
-Open two PowerShell terminals (thief here, police in the companion repo). Exact
-`uv run ...` server/client commands are documented when Stage 2 lands.
+Each peer runs a FastMCP server; the opponent connects over localhost. In the
+default suite the A->B round-trip is covered deterministically by FastMCP's
+in-memory client; the live localhost path is verified manually:
+
+```powershell
+# Terminal 1 - thief server (this repo)
+$env:AGENT_ROLE = "thief"; $env:SELF_HOST = "127.0.0.1"; $env:SELF_PORT = "8902"
+uv run python -m anrbj666_thief.mcp      # serves streamable HTTP at /mcp
+
+# Terminal 2 - quick client check against a running peer (police or thief URL)
+uv run python -c "import asyncio; from anrbj666_thief.mcp.client import ping; print(asyncio.run(ping('http://127.0.0.1:8902/mcp')))"
+```
+
+The police server runs identically from the companion repo (default port 8901).
+Real-network checks are **manual** (marked `network`) and excluded from the
+default `uv run pytest`.
 
 ## Public two-machine play (from Stage 5)
 1. Copy `.env.example` → `.env`; set `NGROK_AUTHTOKEN` and ports (thief default 8902).

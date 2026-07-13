@@ -38,6 +38,20 @@ two distinct MINIMUM entries; independence keeps the engine correct if a match
 negotiates unequal values. **Status:** adopted; requirement kept open (see C-002) for
 lecturer/match-level clarification (would affect only negotiated config, never code).
 
+## D-008 — 2026-07-13 — Stage 2 transport: FastMCP; in-memory tests; numeric channel is a scaffold
+Adopt the mandatory `fastmcp` library (v3.x) for the P2P Model Context Protocol.
+Each peer exposes a FastMCP server (`mcp/server.py`) with geometric tools
+(`ping`, `submit_geometric`) and acts as a client (`mcp/client.py`); a runnable
+localhost entrypoint lives in `mcp/__main__.py`. **Testing:** use FastMCP's
+in-memory `Client(server)` transport — a real MCP round-trip without sockets — as
+the deterministic default; real-network tests are marked `network` and excluded
+from the default suite (`addopts = -m 'not network and not llm and not gmail'`).
+**Numeric coordinates are a Stage-2 transport scaffold only**; Stage 4 replaces/
+wraps them with free-language dialogue so the final system never uses a direct
+numeric-position protocol (Rule 27). **Rationale:** book Ch. 2 mandates FastMCP;
+in-memory testing keeps the suite offline/fast; staged plan (§10.3.2) explicitly
+starts with numeric messages. **Status:** adopted.
+
 ## Pending decisions
 - **PD-001 (C-002):** RESOLVED for implementation by D-007 (independent, default-equal).
   Remains open only for optional lecturer/opponent clarification of intended equality;

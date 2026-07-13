@@ -21,11 +21,24 @@ Living task list. `[ ]` open · `[~]` in progress · `[x]` done. Grouped by stag
 - [x] Scoring table (`game/scoring.py`)
 - [x] Single-process end-to-end driver (`game/engine.py`)
 - [x] Tests (71) + coverage (100%) + ruff clean
-- [ ] Human: manual commit + push (thief, Stage 1)
-- [ ] Human: confirm `COMMIT DONE: STAGE 1 ...`
+- [x] Human: manual commit + push (thief, Stage 1)
+- [x] Human: confirm `COMMIT DONE: STAGE 1 ...`
+
+## Stage 2 — basic FastMCP infrastructure
+- [x] Add `fastmcp` runtime dep + `pytest-asyncio`; async test config
+- [x] Geometric message contract + strict validation + canonical JSON (`mcp/messages.py`)
+- [x] Receiver inbox (`mcp/inbox.py`)
+- [x] FastMCP server with geometric tools `ping`/`submit_geometric` (`mcp/server.py`)
+- [x] Client helpers `ping`/`send_geometric` (`mcp/client.py`)
+- [x] Runnable localhost entrypoint (`mcp/__main__.py`) + OPERATIONS instructions
+- [x] Milestone test: geometric message A->B received & parsed (in-memory FastMCP round-trip)
+- [x] Tests (90) + coverage (100%) + ruff clean
+- [ ] Human: manual commit + push (thief, Stage 2)
+- [ ] Human: confirm `COMMIT DONE: STAGE 2 ...`
+- [ ] Optional manual: two-terminal localhost live run (marked `network`)
 
 ## Later stages
-- [ ] Stage 2 FastMCP infra · [ ] Stage 3 strategy · [ ] Stage 4 language+scent
+- [ ] Stage 3 strategy · [ ] Stage 4 language+scent
 - [ ] Stage 5 tunnel · [ ] Stage 6 crypto · [ ] Stage 7 reporting · [ ] Final hardening
 
 ## Open questions

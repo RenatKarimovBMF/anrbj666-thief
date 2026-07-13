@@ -58,4 +58,30 @@ tokens, `credentials.json`/`token.json` contents, private personal data, or tunn
   language, or cryptography yet. The thief models barriers to detect capture but
   never places them.
 - **Estimated/measured AI cost:** not separately metered.
-- **Related stage / commit:** Stage 1 — commit hash to be filled after manual commit.
+- **Related stage / commit:** Stage 1 — commit `9569ba2`.
+
+---
+
+## Session 2026-07-13 — Stage 2 basic FastMCP infrastructure
+- **Date:** 2026-07-13
+- **Team member:** Renat (with Alon)
+- **Model:** Cursor agent (Opus 4.8)
+- **Purpose:** Stand up the mandatory FastMCP P2P transport: geometric message
+  contract, server tools, client helpers, runnable localhost entrypoint (TDD).
+- **Prompt summary:** After `COMMIT DONE: STAGE 1 BOTH`, proceed with Stage 2
+  following planning -> tests -> smallest implementation -> checks -> manual
+  commit; no Git writes by Cursor.
+- **Files affected (thief):** `pyproject.toml` (fastmcp + pytest-asyncio, async
+  mode, marker deselection, coverage omit), `src/anrbj666_thief/mcp/{__init__,messages,inbox,server,client,__main__}.py`,
+  `tests/{test_messages,test_mcp}.py`, `docs/{DECISIONS,OPERATIONS,TODO,PROMPT_BOOK,REQUIREMENTS_MATRIX}.md`, `uv.lock`.
+- **Important decisions:** D-008 (FastMCP v3.x; in-memory `Client(server)` tests;
+  numeric channel is a Stage-2 scaffold to be wrapped by free language in Stage 4).
+  MCP transport code kept byte-consistent with the police repo (symmetric peer).
+- **Tests performed:** `uv run pytest --cov` -> 90 passed, 100% coverage;
+  `uv run ruff check .` -> clean (fastmcp 3.4.4, Python 3.14.3).
+- **Manual verification performed:** none by Cursor; live localhost two-terminal
+  run documented in OPERATIONS.md for the team (marked `network`).
+- **Known limitations:** no orchestrator/state-machine turn loop yet; no deadline/
+  watchdog; numeric messages only; single tool set. Strategy is Stage 3.
+- **Estimated/measured AI cost:** not separately metered.
+- **Related stage / commit:** Stage 2 — commit hash to be filled after manual commit.

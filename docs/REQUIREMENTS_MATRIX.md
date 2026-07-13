@@ -16,7 +16,7 @@ Stage column = the official stage where the item is delivered.
 
 | ID | Requirement (summary) | Mand? | Src | Pri | Stage | Police resp | Thief resp | Module (planned) | Config field | Unit | Integ | Manual | Evidence | Status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| RQ-ARCH-01 | Police & thief run as fully separate processes; Zero-Trust | Yes | E-R1 | R | 2 | P | T | `mcp/server` | — | ✓ | ✓ | ✓ | two PIDs, logs | NOT-STARTED |
+| RQ-ARCH-01 | Police & thief run as fully separate processes; Zero-Trust | Yes | E-R1 | R | 2 | P | T | `mcp/server`,`mcp/client`,`mcp/__main__` | — | ✓ | ✓ | ✓ | two PIDs, logs | IN-PROGRESS |
 | RQ-ARCH-02 | No shared memory/state between sides | Yes | E-R2 | R | all | P | T | — | — | ✓ | ✓ | – | audit | NOT-STARTED |
 | RQ-ARCH-03 | Single orchestrator entry point per sub-system | Yes | E-R3 | R | 8→2 | P | T | `orchestrator` | — | ✓ | – | – | design | NOT-STARTED |
 | RQ-ARCH-04 | Game state via a proper state machine | Yes | E-R4 | R | 2 | P | T | `orchestrator/fsm` | — | ✓ | ✓ | – | tests | NOT-STARTED |
@@ -41,7 +41,7 @@ Stage column = the official stage where the item is delivered.
 | RQ-BELIEF-01 | Local belief state / Bayesian heatmap of pursuer | Yes | Ch.6 | R | 3/4 | P | **T** | `strategy/belief` | — | ✓ | – | – | tests | NOT-STARTED |
 | RQ-STRAT-01 | Pluggable strategy module (`ThiefBrain._pick_move`) | Yes | F-T22 | F | 3 | – | **T** | `strategy` | `[strategy].thief_class` | ✓ | – | – | tests | NOT-STARTED |
 | RQ-LANG-01 | Free-language dialogue between agents | Yes | E-R26, C | R/C | 4 | P | T | `protocol/lang` | `verbal.hint_word_limit` | ✓ | ✓ | – | transcript | NOT-STARTED |
-| RQ-LANG-02 | No direct numeric-position protocol | Yes | E-R27 | R | 4 | P | T | `protocol` | — | ✓ | ✓ | – | tests | NOT-STARTED |
+| RQ-LANG-02 | No direct numeric-position protocol | Yes | E-R27 | R | 4 | P | T | `protocol` (Stage 4 wraps Stage-2 `mcp` numeric scaffold) | — | ✓ | ✓ | – | tests | NOT-STARTED |
 | RQ-LLM-01 | LLM never decides moves (text/deception only) | Yes | E-R25, F-T21 | R/F | 4 | P | T | `llm/gatekeeper` | `[trash_talk].provider` | ✓ | – | – | tests | NOT-STARTED |
 | RQ-LLM-02 | Template mode = zero tokens, default, offline | Yes | F-T21, C | F/C | 3/4 | P | T | `llm/template` | `provider=template` | ✓ | – | – | tests | NOT-STARTED |
 | RQ-CRYPT-01 | Commit-Reveal over SHA-256 | Yes | E-R17, Ch.5 | R | 6 | P | T | `crypto/commit_reveal` | — | ✓ | ✓ | – | tests | NOT-STARTED |
