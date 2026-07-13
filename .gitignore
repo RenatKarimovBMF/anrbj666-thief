@@ -1,4 +1,4 @@
-# ---- Secrets & credentials (MANDATORY - Appendix F rule 40, guidelines §9) ----
+# ---- Secrets & credentials (MANDATORY - Appendix F rule 40, guidelines sec. 9) ----
 .env
 .env.*
 !.env.example

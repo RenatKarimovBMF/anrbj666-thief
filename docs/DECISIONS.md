@@ -26,8 +26,20 @@ decision (competitive-secrecy trade-off accepted). **Status:** adopted.
 ## D-006 — 2026-07-13 — `src/` layout + ≈≤150 lines/file
 **Rationale:** guidelines (modularity, testability). **Status:** adopted.
 
+## D-007 — 2026-07-13 — `max_steps` and `survival_threshold` are independent (default-equal)
+Per user instruction (resolving C-002): `movement.max_steps` and
+`movement.survival_threshold` are treated as **independent, individually configurable
+and individually validated** parameters. Appendix F defaults are `35` for each
+(default-equal). **They must not be coupled in code** — neither field is derived from
+or asserted equal to the other; each is validated against its own MINIMUM (≥35). The
+termination engine evaluates survival win (at `survival_threshold`) and the step
+ceiling (`max_steps`) as separate conditions. **Rationale:** Appendix F lists them as
+two distinct MINIMUM entries; independence keeps the engine correct if a match
+negotiates unequal values. **Status:** adopted; requirement kept open (see C-002) for
+lecturer/match-level clarification (would affect only negotiated config, never code).
+
 ## Pending decisions
-- **PD-001 (C-002):** relationship between `max_steps` and `survival_threshold`
-  (independent vs equal). Needs human/opponent confirmation before Stage 1 win logic.
-  Directly affects the thief's survival-win condition.
+- **PD-001 (C-002):** RESOLVED for implementation by D-007 (independent, default-equal).
+  Remains open only for optional lecturer/opponent clarification of intended equality;
+  no code change would result (config-only). Directly affects the thief's survival-win condition.
 - **PD-002:** type checker choice (`mypy` vs `pyright`). Default `mypy` unless changed.

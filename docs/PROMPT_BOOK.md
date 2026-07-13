@@ -30,3 +30,32 @@ tokens, `credentials.json`/`token.json` contents, private personal data, or tunn
 - **Known limitations:** planning only; no game logic; C-002 open.
 - **Estimated/measured AI cost:** not measured this session.
 - **Related stage / commit:** Stage 0 — commit hash to be filled after manual commit.
+
+---
+
+## Session 2026-07-13 — Stage 1 base logic
+- **Date:** 2026-07-13
+- **Team member:** Renat (with Alon)
+- **Model:** Cursor agent (Opus 4.8)
+- **Purpose:** Implement Stage 1 base logic (config validation + single-process
+  game: geometry, board, movement rules, capture, scoring, engine) via TDD.
+- **Prompt summary:** Resolve C-002 (treat `max_steps`/`survival_threshold` as
+  independent, default-equal 35, uncoupled in code; document in
+  REQUIREMENTS_CONFLICTS.md + DECISIONS.md). Proceed with Stage 1 following
+  planning → tests → smallest implementation → complete checks → manual commit;
+  no Git writes by Cursor.
+- **Files affected (thief):** `src/anrbj666_thief/__init__.py`,
+  `config/{__init__,model,loader}.py`, `game/{__init__,geometry,board,rules,capture,scoring,engine}.py`,
+  `tests/{conftest,test_config,test_geometry,test_board,test_rules,test_capture,test_scoring,test_engine}.py`,
+  `.gitignore` (re-saved UTF-8/ASCII), `docs/{REQUIREMENTS_CONFLICTS,DECISIONS,TODO,PROMPT_BOOK,REQUIREMENTS_MATRIX}.md`.
+- **Important decisions:** D-007 (independent max_steps/survival_threshold);
+  C-005 (Rule 47 "trapped" = no adjacent step available). Base game logic is kept
+  byte-consistent with the police repo per INTEROPERABILITY.md (shared public rules).
+- **Tests performed:** `uv run pytest --cov` → 71 passed, 100% coverage;
+  `uv run ruff check .` → all checks passed (Python 3.14.3, uv 0.11.28).
+- **Manual verification performed:** none required (Cursor performed no Git ops).
+- **Known limitations:** single process only; no networking, strategy, scent,
+  language, or cryptography yet. The thief models barriers to detect capture but
+  never places them.
+- **Estimated/measured AI cost:** not separately metered.
+- **Related stage / commit:** Stage 1 — commit hash to be filled after manual commit.
